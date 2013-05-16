@@ -14,6 +14,7 @@ import android.util.FloatMath;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -79,6 +80,14 @@ public class MainActivity extends Activity {
 		mMap.addMarker(new MarkerOptions().position(myPosition).title(
 				"Ultima posizione conosciuta"));
 
+		findViewById(R.id.start_travel).setOnClickListener(
+				new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Toast.makeText(getApplicationContext(), "Gps Disabled",
+								Toast.LENGTH_SHORT).show();
+					}
+				});
 	}
 
 	/* Class My Location Listener */
@@ -107,12 +116,19 @@ public class MainActivity extends Activity {
 
 			findViewById(R.id.start_travel).setOnClickListener(
 					new OnClickListener() {
+						//private Button b;
 						@Override
 						public void onClick(View v) {
-
+							int cont=1;
+							if (cont==1){
 							mMap.addMarker(new MarkerOptions().position(
 									(lastPos)).title("Partenza"));
-							findViewById(R.id.start_travel).setClickable(false);
+							cont++;
+							}
+							else{
+							//b.setText(findViewById(R.id.start_travel));	
+								
+							}
 						}
 					});
 			// Foto
