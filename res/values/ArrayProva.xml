@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="EventiFuffa">
+        <item >10/12/2012,Olanda</item>
+        <item >12/13/2012,Padova</item>
+        <item >12/31/2012,USA</item>
+        <item >12/31/2012,New York</item>
+        <item >01/05/2013,Cles</item>
+        
+    </string-array>
+
+</resources>
