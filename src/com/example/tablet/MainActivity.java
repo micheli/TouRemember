@@ -10,7 +10,6 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.FloatMath;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,11 +27,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MainActivity extends Activity {
 	// Dichiaro la mappa
 	private GoogleMap mMap;
-	LatLng myPosition;
 
-	// Setto le coordinate base
-	public final double lat = 46.0702531;
-	public final double lon = 11.1216386;
+	LatLng myPosition;
 	LocationManager mlocManager;
 
 	@Override
@@ -46,9 +42,6 @@ public class MainActivity extends Activity {
 
 		// Setto il tipo della mappa
 		mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-		// Setto le coordinate all' apertura della mappa su Trento
-		LatLng myPos = new LatLng(lat, lon);
-		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPos, 12));
 
 		// Uso il LocationManager per ottenere la posizione gps
 		LocationManager mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -64,17 +57,17 @@ public class MainActivity extends Activity {
 
 		// Ottengo l'ultima posizione conosciuta
 		Location location = mlocManager.getLastKnownLocation(provider);
-		// if (location != null) {
+
 		// Latitudine
 		double latitude = location.getLatitude();
-
 		// Longitudine
 		double longitude = location.getLongitude();
 		// setto la mia posizione
 		myPosition = new LatLng(latitude, longitude);
 
 		// Ricavo l'ultima posizione nota e mi sposto in quella posizione
-		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(myPosition);
+		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(
+				(myPosition), 12);
 		// con un'animazione
 		mMap.animateCamera(cameraUpdate);
 		mMap.addMarker(new MarkerOptions().position(myPosition).title(
@@ -116,18 +109,19 @@ public class MainActivity extends Activity {
 
 			findViewById(R.id.start_travel).setOnClickListener(
 					new OnClickListener() {
-						//private Button b;
+						private Button b;
+
 						@Override
 						public void onClick(View v) {
-							int cont=1;
-							if (cont==1){
-							mMap.addMarker(new MarkerOptions().position(
-									(lastPos)).title("Partenza"));
-							cont++;
-							}
-							else{
-							//b.setText(findViewById(R.id.start_travel));	
-								
+							int cont = 1;
+							if (cont == 1) {
+								mMap.addMarker(new MarkerOptions().position(
+										(lastPos)).title("Partenza"));
+								cont++;
+							} else {
+								b = (Button) findViewById(R.id.start_travel);
+								b.setText("fine");
+
 							}
 						}
 					});
@@ -160,7 +154,7 @@ public class MainActivity extends Activity {
 
 		@Override
 		public void onProviderDisabled(String provider) {
-			Toast.makeText(getApplicationContext(), "Gps Disabled",
+			Toast.makeText(getApplicationContext(), "Gps Disabled, turn on for start a travel",
 					Toast.LENGTH_SHORT).show();
 		}
 
@@ -186,21 +180,4 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	private double gps2m(float lat_a, float lng_a, float lat_b, float lng_b) {
-		float pk = (float) (180 / 3.14169);
-
-		float a1 = lat_a / pk;
-		float a2 = lng_a / pk;
-		float b1 = lat_b / pk;
-		float b2 = lng_b / pk;
-
-		float t1 = FloatMath.cos(a1) * FloatMath.cos(a2) * FloatMath.cos(b1)
-				* FloatMath.cos(b2);
-		float t2 = FloatMath.cos(a1) * FloatMath.sin(a2) * FloatMath.cos(b1)
-				* FloatMath.sin(b2);
-		float t3 = FloatMath.sin(a1) * FloatMath.sin(b1);
-		double tt = Math.acos(t1 + t2 + t3);
-
-		return 6366000 * tt;
-	}
 }
