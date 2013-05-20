@@ -126,6 +126,7 @@ public class MainActivity extends Activity {
 						}
 					});
 			// Foto
+			//
 			findViewById(R.id.foto).setOnClickListener(new OnClickListener() {
 				private Uri fileUri;
 				// public static final int MEDIA_TYPE_IMAGE = 1;
