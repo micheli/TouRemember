@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -27,7 +28,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MainActivity extends Activity {
 	// Dichiaro la mappa
 	private GoogleMap mMap;
-
+	private Boolean LocationChange = false;
 	LatLng myPosition;
 	LocationManager mlocManager;
 
@@ -89,7 +90,7 @@ public class MainActivity extends Activity {
 
 		@Override
 		public void onLocationChanged(Location loc) {
-
+			LocationChange = true;
 			loc.getLatitude();
 			loc.getLongitude();
 			lastPos = new LatLng(loc.getLatitude(), loc.getLongitude());
@@ -127,35 +128,36 @@ public class MainActivity extends Activity {
 					});
 			// Foto
 			//
-			findViewById(R.id.foto).setOnClickListener(new OnClickListener() {
-				private Uri fileUri;
-				// public static final int MEDIA_TYPE_IMAGE = 1;
-				private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
-
-				@Override
-				public void onClick(View v) {
-					// create Intent to take a picture and return control to the
-					// calling application
-					Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-					// fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); //
-					// create a file to save the image
-					intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-					// set the image file name
-
-					// start the image capture Intent
-					startActivityForResult(intent,
-							CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-					mMap.addMarker(new MarkerOptions().position((lastPos))
-							.title("foto"));
-
-				}
-			});
+//			findViewById(R.id.foto).setOnClickListener(new OnClickListener() {
+//				private Uri fileUri;
+//				// public static final int MEDIA_TYPE_IMAGE = 1;
+//				private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+//
+//				@Override
+//				public void onClick(View v) {
+//					// create Intent to take a picture and return control to the
+//					// calling application
+//					Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//
+//					// fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); //
+//					// create a file to save the image
+//					intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+//					// set the image file name
+//
+//					// start the image capture Intent
+//					startActivityForResult(intent,
+//							CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+//					mMap.addMarker(new MarkerOptions().position((lastPos))
+//							.title("foto"));
+//
+//				}
+//			});
 		}
 
 		@Override
 		public void onProviderDisabled(String provider) {
-			Toast.makeText(getApplicationContext(), "Gps Disabled, turn on for start a travel",
+			Toast.makeText(getApplicationContext(),
+					"Gps Disabled, turn on for start a travel",
 					Toast.LENGTH_SHORT).show();
 		}
 
@@ -181,4 +183,35 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (LocationChange) {
+			switch (item.getItemId()) {
+			case R.id.take_photo:
+				//Uri fileUri;
+				// public static final int MEDIA_TYPE_IMAGE = 1;
+				final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+
+				// create Intent to take a picture and return control to the
+				// calling application
+				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+				// fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); //
+				// create a file to save the image
+				// intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+				// set the image file name
+
+				// start the image capture Intent
+				startActivityForResult(intent,
+						CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+
+				mMap.addMarker(new MarkerOptions().position((myPosition))
+						.title("foto"));
+
+				return true;
+			}
+			
+		}
+
+		return false;
+	}
 }

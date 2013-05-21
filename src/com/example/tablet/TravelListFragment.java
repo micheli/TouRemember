@@ -5,15 +5,6 @@ import java.util.Date;
 import com.actionbarsherlock.app.SherlockListFragment;
 
 public class TravelListFragment extends SherlockListFragment {
-	@SuppressWarnings("deprecation")
-	@Override
-//	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//			Bundle savedInstanceState) {
-//		// Inflate the layout for this fragment
-//		View view = inflater.inflate(R.layout.fragment_myagenda_overview,
-//				container, false);
-//		return view;
-//	}
 
 	public void onStart() {
 		super.onStart();
