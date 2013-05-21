@@ -3,12 +3,12 @@ package com.example.tablet;
 import java.util.Date;
 
 
-public class CourseEvent {
+public class SavedEvent {
 	private Date date;
 	private String name;
 	
 	
-	public CourseEvent(Date date, String name) {
+	public SavedEvent(Date date, String name) {
 		super();
 		this.date = date;
 		this.name = name;

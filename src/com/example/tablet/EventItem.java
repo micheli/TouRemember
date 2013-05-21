@@ -4,9 +4,9 @@ import java.text.SimpleDateFormat;
 
 public class EventItem extends TitledItem {
 
-	private CourseEvent object;
+	private SavedEvent object;
 		
-	public EventItem(CourseEvent obj) {
+	public EventItem(SavedEvent obj) {
 		super();
 		
 		this.object = obj;

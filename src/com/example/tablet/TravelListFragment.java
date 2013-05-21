@@ -15,7 +15,7 @@ public class TravelListFragment extends SherlockListFragment {
 		for (String s : events) {
 			String[] itms = s.split(",");
 			Date d = new Date(Date.parse(itms[0]));
-			CourseEvent e = new CourseEvent(d, itms[1]);
+			SavedEvent e = new SavedEvent(d, itms[1]);
 			items[i++] = new EventItem(e);
 		}
 
