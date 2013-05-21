@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
 	private Boolean LocationChange = false;
 	LatLng myPosition;
 	LocationManager mlocManager;
-
+	public LatLng lastPos;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -86,7 +86,7 @@ public class MainActivity extends Activity {
 
 	/* Class My Location Listener */
 	public class MyLocationListener implements LocationListener {
-		public LatLng lastPos;
+		//public LatLng lastPos;
 
 		@Override
 		public void onLocationChanged(Location loc) {
@@ -204,7 +204,7 @@ public class MainActivity extends Activity {
 				startActivityForResult(intent,
 						CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 
-				mMap.addMarker(new MarkerOptions().position((myPosition))
+				mMap.addMarker(new MarkerOptions().position((lastPos))
 						.title("foto"));
 
 				return true;
