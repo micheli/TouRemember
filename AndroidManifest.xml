@@ -58,6 +58,17 @@
             android:configChanges="orientation|screenSize"
             android:label="@string/travel" >
         </activity>
+        <activity
+            android:name="com.example.tablet.TravelSavedActivity"
+            
+            android:screenOrientation="portrait"
+            android:label="@string/travel">
+        </activity>
+        <activity
+            android:name="com.example.tablet.SavedMapActivity"
+            
+            android:label="@string/travel" >
+        </activity>
     </application>
 
 </manifest>
